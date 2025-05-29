@@ -1,0 +1,18 @@
+{
+  "name": "@pan7k/eslint-next",
+  "description": "ESLint flat config for Next.js projects",
+  "author": {
+    "name": "Tomáš Pánik",
+    "email": "tomas@panik.cc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pan7k/config.git"
+  },
+  "license": "MIT",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "eslint": "^9.27.0"
+  }
+}
