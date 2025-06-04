@@ -1,0 +1,23 @@
+{
+  "name": "@pan7k/config",
+  "description": "Shared configs for TypeScript, ESLint and Prettier",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.2.14",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "@eslint/json": "^0.12.0",
+    "@eslint/markdown": "^6.4.0",
+    "@types/node": "^22.15.29",
+    "@types/react": "^19.1.6",
+    "eslint": "^9.28.0",
+    "eslint-plugin-jsonc": "^2.20.1",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "globals": "^16.2.0",
+    "prettier": "^3.5.3",
+    "type-fest": "^4.41.0"
+  }
+}
