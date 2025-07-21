@@ -31,6 +31,11 @@ Create a `tsconfig.json` in your project's root directory:
 
 ```json
 {
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist",
+    "rootDir": "./core"
+  },
   "extends": "@pan7k/tsconfig-nestjs/config.json"
 }
 ```
