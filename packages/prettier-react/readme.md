@@ -14,14 +14,7 @@ To install the dependencies, you need to obtain a [GitHub Personal Access Token]
 
 #### Installation
 
-If you are using [bun](https://bun.sh), start by creating a new file named `bunfig.toml` in the root directory of your project and insert the following code:
-
-```toml
-[install.scopes]
-"@pan7k" = { url = "https://npm.pkg.github.com", token = "$GITHUB_TOKEN" }
-```
-
-If you’re using npm (or other Node.js package managers), add the following to your `.npmrc` file:
+Add the following to your `.npmrc` file:
 
 ```npmrc
 @pan7k:registry=https://npm.pkg.github.com/
@@ -34,15 +27,7 @@ Next, place the `.env` file in your project's root directory and fill it in by a
 GITHUB_TOKEN=
 ```
 
-Finally, install **@pan7k/prettier-react** as a development dependency:
-
-```bash
-# using bun
-bun add -d @pan7k/prettier-react
-
-# using npm
-npm install --save-dev @pan7k/prettier-react
-```
+Finally, install **@pan7k/prettier-react** as a development dependency.
 
 #### Usage
 
