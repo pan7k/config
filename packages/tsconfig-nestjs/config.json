@@ -6,7 +6,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "incremental": true,
     "module": "commonjs",
     "removeComments": true,
     "skipLibCheck": true,
