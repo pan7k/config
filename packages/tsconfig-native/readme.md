@@ -1,5 +1,5 @@
 <br>
-<img src="https://github.com/pan7k/config/blob/main/docs/blank.svg" />
+<img src="https://github.com/pan7k/config/blob/main/docs/blank.svg" alt="Logo" />
 
 ### TSConfig Native
 
@@ -17,7 +17,7 @@ Add the following to your `.npmrc` file:
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 ```
 
-Next, place the `.env` file in your project's root directory and fill it in by adding the GitHub token:
+Then, create a `.env` file in the project’s root directory and add the following:
 
 ```env
 GITHUB_TOKEN=
