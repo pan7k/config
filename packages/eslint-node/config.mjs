@@ -58,9 +58,6 @@ export default ts.config([
     rules: {
       "@typescript-eslint/consistent-type-imports": ["warn", { prefer: "no-type-imports" }],
       "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/no-unsafe-argument": "warn",
-      "@typescript-eslint/no-unsafe-assignment": "warn",
-      "@typescript-eslint/no-unsafe-member-access": "warn",
       "@typescript-eslint/no-unused-vars": "warn",
     },
   },
