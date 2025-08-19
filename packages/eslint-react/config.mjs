@@ -14,7 +14,7 @@ import ts from "typescript-eslint";
  */
 
 /**
- * ESLint flat config for React / TypeScript projects.
+ * ESLint flat config for React projects.
  * Supports: JS/TS, React, JSON, Markdown, CSS.
  * Factory lets consumers override TS project globs.
  * @param {ConfigOptions} [options]
@@ -22,134 +22,132 @@ import ts from "typescript-eslint";
 export function createConfig({ projects } = /** @type {ConfigOptions} */ {}) {
   const resolvedProjects = projects ?? ["./tsconfig.json"];
 
-  return [
-    ...ts.config([
-      {
-        // base JS / TS (non type-aware rules)
-        files: ["**/*.{js,mjs,mjsx,cjs,ts,mts,mtsx,cts,jsx,tsx}"],
-        plugins: { sort },
-        languageOptions: {
-          parserOptions: {
-            sourceType: "module",
-            ecmaVersion: "latest",
-          },
+  return ts.config(
+    ...ts.configs.recommendedTypeChecked,
+    // base JS/TS (non type-aware)
+    {
+      files: ["**/*.{js,mjs,mjsx,cjs,ts,mts,mtsx,cts,jsx,tsx}"],
+      plugins: { sort },
+      languageOptions: {
+        parserOptions: {
+          sourceType: "module",
+          ecmaVersion: "latest",
         },
-        rules: {
-          "no-unused-vars": "warn",
-          "sort/imports": [
-            "warn",
-            {
-              groups: [
-                [
-                  "^u0000",
-                  "^react$",
-                  "^@?w",
-                  "^@",
-                  "^",
-                  "^./",
-                  "^.+.(module.css|module.scss)$",
-                  "^.+.(gif|png|svg|jpg)$",
-                ],
+      },
+      rules: {
+        "no-unused-vars": "warn",
+        "sort/imports": [
+          "warn",
+          {
+            groups: [
+              [
+                "^u0000",
+                "^react$",
+                "^@?w",
+                "^@",
+                "^",
+                "^./",
+                "^.+.(module.css|module.scss)$",
+                "^.+.(gif|png|svg|jpg)$",
               ],
-            },
-          ],
-        },
-      },
-      {
-        // type-aware TS (only where project files exist)
-        files: ["**/*.{ts,mts,cts,tsx,mtsx}"],
-        languageOptions: {
-          globals: globals.browser,
-          parser: ts.parser,
-          parserOptions: {
-            project: resolvedProjects,
+            ],
           },
-        },
-        plugins: { "@typescript-eslint": ts.plugin },
-        extends: [ts.configs.recommendedTypeChecked],
-        rules: {
-          "@typescript-eslint/consistent-type-imports": ["warn", { prefer: "no-type-imports" }],
-          "@typescript-eslint/no-explicit-any": "warn",
-          "@typescript-eslint/no-unused-vars": "warn",
-          "@typescript-eslint/no-unsafe-return": "warn",
-          "@typescript-eslint/no-unsafe-call": "warn",
-          "@typescript-eslint/no-unsafe-member-access": "warn",
+        ],
+      },
+    },
+    // type-aware overrides
+    {
+      files: ["**/*.{ts,mts,cts,tsx,mtsx}"],
+      languageOptions: {
+        globals: globals.browser,
+        parser: ts.parser,
+        parserOptions: {
+          project: resolvedProjects,
         },
       },
-      {
-        // react
-        files: ["**/*.{jsx,tsx,mjsx,mtsx}"],
-        plugins: { react, hooks },
-        settings: { react: { version: "detect" } },
-        languageOptions: {
-          globals: {
-            ...globals.serviceworker,
-            ...globals.browser,
+      plugins: { "@typescript-eslint": ts.plugin },
+      rules: {
+        "@typescript-eslint/consistent-type-imports": ["warn", { prefer: "no-type-imports" }],
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "@typescript-eslint/no-unsafe-return": "warn",
+        "@typescript-eslint/no-unsafe-call": "warn",
+        "@typescript-eslint/no-unsafe-member-access": "warn",
+      },
+    },
+    // react
+    {
+      files: ["**/*.{jsx,tsx,mjsx,mtsx}"],
+      plugins: { react, hooks },
+      settings: { react: { version: "detect" } },
+      languageOptions: {
+        globals: {
+          ...globals.serviceworker,
+          ...globals.browser,
+        },
+      },
+      rules: {
+        ...react.configs.flat.recommended.rules,
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off",
+        "hooks/rules-of-hooks": "error",
+        "hooks/exhaustive-deps": "warn",
+      },
+    },
+    // json
+    {
+      files: ["**/*.json"],
+      ignores: ["**/package.json"],
+      language: "json/json",
+      plugins: { json, jsonc },
+      rules: {
+        "jsonc/sort-keys": ["warn", { pathPattern: ".*", order: { type: "asc" } }],
+        "jsonc/sort-array-values": ["warn", { pathPattern: ".*", order: { type: "asc" } }],
+      },
+    },
+    // package.json
+    {
+      files: ["**/package.json"],
+      language: "json/json",
+      plugins: { json, jsonc },
+      rules: {
+        "jsonc/sort-keys": [
+          "warn",
+          {
+            pathPattern: "^$",
+            order: [
+              "name",
+              "description",
+              "author",
+              "repository",
+              "private",
+              "license",
+              "version",
+              "type",
+              "main",
+              "module",
+              "exports",
+              "sideEffects",
+              "types",
+              "packageManager",
+              "workspaces",
+              "scripts",
+              "dependencies",
+              "peerDependencies",
+              "devDependencies",
+            ],
           },
-        },
-        rules: {
-          ...react.configs.flat.recommended.rules,
-          "react/jsx-uses-react": "off",
-          "react/react-in-jsx-scope": "off",
-          "hooks/rules-of-hooks": "error",
-          "hooks/exhaustive-deps": "warn",
-        },
+          {
+            pathPattern: "^(dependencies|devDependencies|peerDependencies).*",
+            order: { type: "asc" },
+          },
+        ],
       },
-      {
-        // json
-        files: ["**/*.json"],
-        ignores: ["**/package.json"],
-        language: "json/json",
-        plugins: { json, jsonc },
-        rules: {
-          "jsonc/sort-keys": ["warn", { pathPattern: ".*", order: { type: "asc" } }],
-          "jsonc/sort-array-values": ["warn", { pathPattern: ".*", order: { type: "asc" } }],
-        },
-      },
-      {
-        // package.json
-        files: ["**/package.json"],
-        language: "json/json",
-        plugins: { json, jsonc },
-        rules: {
-          "jsonc/sort-keys": [
-            "warn",
-            {
-              pathPattern: "^$",
-              order: [
-                "name",
-                "description",
-                "author",
-                "repository",
-                "private",
-                "license",
-                "version",
-                "type",
-                "main",
-                "module",
-                "exports",
-                "sideEffects",
-                "types",
-                "packageManager",
-                "workspaces",
-                "scripts",
-                "dependencies",
-                "peerDependencies",
-                "devDependencies",
-              ],
-            },
-            {
-              pathPattern: "^(dependencies|devDependencies|peerDependencies).*",
-              order: { type: "asc" },
-            },
-          ],
-        },
-      },
-    ]),
+    },
     // markdown & css
     markdown.configs.recommended,
     css.configs.recommended,
-  ];
+  );
 }
 
 const config = createConfig();
