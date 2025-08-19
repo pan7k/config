@@ -72,9 +72,9 @@ export default [
     {
       // react
       files: ["**/*.{jsx,tsx,mjsx,mtsx}"],
+      ...react.configs.flat.recommended,
       plugins: { react, hooks },
       settings: { react: { version: "detect" } },
-      extends: [react.configs.flat],
       languageOptions: {
         globals: {
           ...globals.serviceworker,
@@ -82,6 +82,7 @@ export default [
         },
       },
       rules: {
+        ...react.configs.flat.recommended.rules,
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
         "hooks/rules-of-hooks": "error",
@@ -150,17 +151,7 @@ export default [
         ],
       },
     },
-    {
-      // markdown
-      files: ["**/*.md"],
-      plugins: { markdown },
-      extends: [markdown.configs.recommended],
-    },
-    {
-      // styles (CSS / SCSS / Less)
-      files: ["**/*.{css,scss,less}"],
-      plugins: { css },
-      extends: [css.configs.recommended],
-    },
+    markdown.configs.recommended,
+    css.configs.recommended,
   ]),
 ];
