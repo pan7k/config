@@ -1,5 +1,6 @@
-import { FlatCompat } from "@eslint/eslintrc";
 import json from "@eslint/json";
+import markdown from "@eslint/markdown";
+import css from "@eslint/css";
 import jsonc from "eslint-plugin-jsonc";
 import react from "eslint-plugin-react";
 import hooks from "eslint-plugin-react-hooks";
@@ -13,7 +14,6 @@ import ts from "typescript-eslint";
  * Works with JavaScript, TypeScript, React, JSON, Markdown and CSS.
  * @see https://typescript-eslint.io/rules/
  */
-const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
 
 export default [
   ...ts.config([
@@ -150,14 +150,17 @@ export default [
         ],
       },
     },
+    {
+      // markdown
+      files: ["**/*.md"],
+      plugins: { markdown },
+      extends: [markdown.configs.recommended],
+    },
+    {
+      // styles (CSS / SCSS / Less)
+      files: ["**/*.{css,scss,less}"],
+      plugins: { css },
+      extends: [css.configs.recommended],
+    },
   ]),
-
-  // compat wrappers for legacy/shareable configs that aren't flat-config objects
-  ...compat.config({
-    overrides: [
-      { files: ["**/*.md"], extends: ["plugin:markdown/recommended"] },
-      { files: ["**/*.css"], extends: ["plugin:@eslint/css/recommended"] },
-      { files: ["**/*.{jsx,tsx,mjsx,mtsx}"], extends: ["plugin:react-hooks/recommended"] },
-    ],
-  }),
 ];
