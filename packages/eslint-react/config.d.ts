@@ -1,11 +1,11 @@
 declare module "@pan7k/eslint-react" {
   import { Config } from "typescript-eslint";
 
-  export interface ReactConfigOptions {
-    tsProjects?: string[];
+  export interface ConfigOptions {
+    projects?: string[];
   }
 
-  export function createReactConfig(options?: ReactConfigOptions): Config[];
+  export function createConfig(options?: ConfigOptions): Config[];
 
   const config: Config[];
   export default config;

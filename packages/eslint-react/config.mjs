@@ -9,7 +9,7 @@ import globals from "globals";
 import ts from "typescript-eslint";
 
 /**
- * @typedef {Object} Options
+ * @typedef {Object} ConfigOptions
  * @property {string[]} [projects] Array of TypeScript project tsconfig paths.
  */
 
@@ -17,9 +17,9 @@ import ts from "typescript-eslint";
  * ESLint flat config for React / TypeScript projects.
  * Supports: JS/TS, React, JSON, Markdown, CSS.
  * Factory lets consumers override TS project globs.
- * @param {Options} [options]
+ * @param {ConfigOptions} [options]
  */
-export function createConfig({ projects } = /** @type {Options} */ {}) {
+export function createConfig({ projects } = /** @type {ConfigOptions} */ {}) {
   const resolvedProjects = projects ?? ["./tsconfig.json"];
 
   return [
