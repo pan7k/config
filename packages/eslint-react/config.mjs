@@ -23,7 +23,6 @@ export function createConfig({ projects } = /** @type {ConfigOptions} */ {}) {
   const resolvedProjects = projects ?? ["./tsconfig.json"];
 
   return ts.config(
-    ...ts.configs.recommendedTypeChecked,
     // base JS/TS (non type-aware)
     {
       files: ["**/*.{js,mjs,mjsx,cjs,ts,mts,mtsx,cts,jsx,tsx}"],
@@ -58,6 +57,7 @@ export function createConfig({ projects } = /** @type {ConfigOptions} */ {}) {
     // type-aware overrides
     {
       files: ["**/*.{ts,mts,cts,tsx,mtsx}"],
+      extends: [ts.configs.recommendedTypeChecked],
       languageOptions: {
         globals: globals.browser,
         parser: ts.parser,
