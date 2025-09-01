@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "types": [
+      "node"
+    ]
+  },
+  "extends": "./packages/tsconfig-react/config.json",
+  "include": [
+    "."
+  ]
+}

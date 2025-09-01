@@ -1,0 +1,14 @@
+{
+  "name": "@pan7k/tsconfig-react",
+  "description": "TypeScript config for React projects",
+  "author": {
+    "name": "Tomáš Pánik",
+    "email": "tomas@panik.cc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pan7k/config.git"
+  },
+  "license": "MIT",
+  "version": "1.0.0"
+}

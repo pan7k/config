@@ -1,0 +1,18 @@
+{
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "eslint.options": {
+    "overrideConfigFile": "packages/eslint-node/config.mjs"
+  },
+  "eslint.useFlatConfig": true,
+  "files.associations": {
+    "*.svg": "html"
+  },
+  "prettier.configPath": "packages/prettier-react/config.mjs"
+}

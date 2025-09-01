@@ -1,0 +1,32 @@
+name: TSConfig NestJS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://npm.pkg.github.com/
+          scope: "@pan7k"
+
+      - name: Copy license
+        run: cp license.txt packages/tsconfig-nestjs/
+
+      - name: Publish package
+        run: |
+          cd packages/tsconfig-nestjs
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

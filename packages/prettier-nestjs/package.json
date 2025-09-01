@@ -1,0 +1,24 @@
+{
+  "name": "@pan7k/prettier-nestjs",
+  "description": "Prettier config for NestJS projects",
+  "author": {
+    "name": "Tomáš Pánik",
+    "email": "tomas@panik.cc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pan7k/config.git"
+  },
+  "license": "MIT",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./config.mjs",
+      "types": "./config.d.ts"
+    }
+  },
+  "peerDependencies": {
+    "prettier": "^3.6.2"
+  }
+}
