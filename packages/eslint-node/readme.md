@@ -45,6 +45,16 @@ import config from "@pan7k/eslint-node";
 export default config;
 ```
 
+To specify the `tsconfig.json` paths for your project, use **createConfig()**:
+
+```ts
+import { createConfig } from "@pan7k/eslint-node";
+
+export default createConfig({
+  projects: ["./tsconfig.json", "./packages/**/tsconfig.json"],
+});
+```
+
 #### License
 
 © 2025 Tomáš Pánik.<br>

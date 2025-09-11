@@ -6,13 +6,22 @@ import globals from "globals";
 import ts from "typescript-eslint";
 
 /**
+ * @typedef {Object} ConfigOptions
+ * @property {string[]} [projects] Array of tsconfig paths.
+ */
+
+/**
  * **ESLint flat config for Node.js projects**
  *
  * Works with JavaScript, TypeScript, JSON and Markdown.
- * @see https://typescript-eslint.io/rules/
+ *
+ * Factory lets consumers override project's tsconfig paths.
+ * @param {ConfigOptions} [options]
  */
-export default [
-  ...ts.config([
+export function createConfig({ projects } = /** @type {ConfigOptions} */ {}) {
+  const resolvedProjects = projects ?? ["./tsconfig.json"];
+
+  return ts.config(
     {
       // non type-aware overrides
       files: ["**/*.{js,mjs,mjsx,cjs,ts,mts,mtsx,cts,jsx,tsx}"],
@@ -51,7 +60,7 @@ export default [
         globals: globals.browser,
         parser: ts.parser,
         parserOptions: {
-          project: ["./tsconfig.json", "./tsconfig.*.json"],
+          project: resolvedProjects,
         },
       },
       plugins: { "@typescript-eslint": ts.plugin },
@@ -129,5 +138,8 @@ export default [
     },
     // markdown
     markdown.configs.recommended,
-  ]),
-];
+  );
+}
+
+const config = createConfig();
+export default config;
